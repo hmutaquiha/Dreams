@@ -1,20 +1,22 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+DREAMS is an ambitious partnership to reduce HIV infections among adolescent girls and young women in 10 sub-Saharan African countries. The goal of DREAMS is to help girls develop into Determined, Resilient, Empowered, AIDS-free, Mentored, and Safe women.
 
+Girls and young women account for 74 percent of new HIV infections among adolescents in sub-Saharan Africa.
+
+The 10 DREAMS countries (Kenya, Lesotho, Malawi, Mozambique, South Africa, Swaziland, Tanzania, Uganda, Zambia, and Zimbabwe) account for more than half of all the new HIV infections that occurred among adolescent girls and young women globally in 2015. This must change.
+
+The DREAMS Layering tool is owned by MISAU (MOH of Mozambique).
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+ In this section you will learn how to install and deploy the DREAMS APPLICATION:
 1.	Installation process
 2.	Software dependencies
 3.	Latest releases
 4.	API references
 
 # Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+We will create a testing project on test.dreams.co.mz and will give access to all.
 
 # Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+ 
+Users and developers can contribute to make DREAMS code better by joining ou Development Team or by direct contact to the project Coordenator (Mr. Jcorda Cololo)
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
