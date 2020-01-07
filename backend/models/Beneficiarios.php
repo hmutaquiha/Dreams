@@ -92,6 +92,8 @@ class Beneficiarios extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+
+            [['emp_lastname', 'emp_firstname'], 'match', 'not'=>true, 'pattern' => '/[^a-zA-Z_-]/', 'message'=>'Apenas letras são válidas!'],
             [['emp_number', 'membro_zona', 'membro_circulo', 'membro_celula', 'membro_localidade_id', 'emp_smoker', 'nation_code', 'emp_gender', 'emp_status', 'job_title_code', 'eeo_cat_code', 'work_station', 'termination_id', 'criado_por', 'actualizado_por','us_id','parceiro_id','via', 'vbg_tempo', 'vbg_vsex_tempo'], 'integer'],
 		[['emp_mobile'], 'integer', 'message' => 'O valor do {attribute} só pode ter números'],
 [['idade_anos'], 'integer', 'min' => 10, 'message' => 'O valor da {attribute} não pode ser menor que 10'],
