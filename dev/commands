@@ -1,0 +1,74 @@
+ 1  apt-get update
+    2  sudo apt-get update
+    3  cd /var/www/
+    4  cd html/
+    5  nano index.html 
+    6  sudo nano index.html 
+    7  sudo service apache2 restart
+    8  nano /usr/share/doc/apache2/README.Debian.gz
+    9  sudo mkdir -p /var/www/i9app.info/public_html
+   10  sudo mkdir -p /var/www/uniza.info/public_html
+   11  sudo chown -R $USER:$USER /var/www/i9app.info/public_html
+   12  sudo chown -R $USER:$USER /var/www/uniza.info/public_html
+   13  sudo chmod -R 755 /var/www
+   14  nano /var/www/i9app.com/public_html/index.html
+   15  nano /var/www/i9app.info/public_html/index.html
+   16  nano /var/www/uniza.info/public_html/index.html
+   17  clear
+   18  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/i9app.info.conf
+   19  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/uniza.info.conf
+   20  sudo nano /etc/apache2/sites-available/i9app.info.conf
+   21  sudo nano /etc/apache2/sites-available/uniza.info.conf
+   22  sudo a2ensite i9app.info.conf
+   23  sudo a2ensite uniza.info.conf
+   24  sudo service apache2 restart
+   25  sudo apt-get update
+   26  sudo mkdir -p /var/www/inovemoz.com/public_html
+   27  sudo chown -R $USER:$USER /var/www/inovemoz.com/public_html
+   28  sudo chmod -R 755 /var/www
+   29  nano /var/www/inovemoz.com/public_html/index.php
+   30  cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-ava/inovemoz.com.conf
+   31  cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/inovemoz.com.conf
+   32  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/inovemoz.com.conf
+   33  sudo nano /etc/apache2/sites-available/inovemoz.com.conf
+   34  sudo a2ensite inovemoz.com.conf
+   35  hostname
+   36  cd ~
+   37  sudo ls -la /root
+   38  visudo
+   39  sudo visudo
+   40  su - root
+   41  cd /var/www/uniza.info/
+   42  ls
+   43  cd public_html/
+   44  ls
+   45  mkdir -p /var/www/camaradas.uniza.info
+   46  sudo mkdir -p /var/www/camaradas.uniza.info
+   47  sudo nano /etc/hosts
+   48  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/camaradas.uniza.info.conf
+   49  sudo nano /etc/apache2/sites-available/camaradas.uniza.info.conf
+   50  sudo a2ensite camaradas.uniza.info.conf
+   51  sudo service apache2 restart
+   52  history > history_host.txt
+   53  ls 
+   54  cd ..
+   55  cd camaradas.uniza.info/
+   56  ls
+   57  sudo nano /etc/apache2/sites-available/camaradas.uniza.info.conf
+   58  sudo /etc/init.d/mysql stop
+   59  sudo mysqld --skip-grant-tables &
+   60  sudo apt-get update
+   61  sudo service apache2 restart
+   62  sudo dpkg-reconfigure phpmyadmi
+   63  sudo dpkg-reconfigure phpmyadmin
+   64  sudo apt-get purge phpmyadmin*
+   65  sudo apt-get update
+   66  sudo apt-get install phpmyadmin
+   67  sudo apt-get purge phpmyadmin*
+   68  sudo apt-get update
+   69  sudo service apache2 restart
+   70  sudo apt-get update
+   71  sudo service apache2 restart
+   72  sudo apt-get install phpmyadmin
+   73  sudo service apache2 restart
+   74  history > history_host.txt

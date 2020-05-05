@@ -65,7 +65,7 @@ MaterialAsset::register($this);}
         <title><?= Html::encode($this->title) ?></title>
         <link href="<?=Url::base();?>/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
         <?php $this->head() ?>
-        <script src="<?=Url::base();?>/css/bootstrap/js/jquery.canvasjs.min.js"></script>
+      <script src="<?=Url::base();?>/css/bootstrap/js/jquery.canvasjs.min.js"></script>
        <link href="<?=Url::base();?>/css/circle.css" rel="stylesheet">
        <link href="<?=Url::base();?>/sass/circle.scss" rel="stylesheet">
 <script>
@@ -379,13 +379,15 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
 
 
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" data-toggle="collapse" data-target="#config">
                                 <i class="fa fa-cog"></i>
                                 <span>Configurações</span>
                                 <i class="fa fa-angle-left pull-right"> </i>
                             </a>
 
-                            <ul class="treeview-menu">
+                                 <!-- EDITADO PARA COLLAPSE  -->
+                            <!-- <ul class="treeview-menu">  -->
+                            <ul id="config" class="collapse">
                                <li>
                                 <a href="#"><i class="fa fa-angle-double-right"></i> Províncias <span class="badge pull-right"> <?= Provincias::find()->count();?></span></a>
                                 </li>
@@ -490,11 +492,13 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
                         </li>
 
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" data-toggle="collapse" data-target="#doc">
                                 <i class="fa fa-folder"></i> <span>Documentos Diversos</span>
                                 <i class="fa fa-angle-left pull-right"> </i>
                             </a>
-                            <ul class="treeview-menu">
+                                 <!-- EDITADO PARA COLLAPSE  -->
+                            <!-- <ul class="treeview-menu">  -->
+                            <ul id="doc" class="collapse">
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Manuais de Formação</a></li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Manual de Utilizador</a></li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Galeria de Fotos</a></li>
@@ -504,14 +508,16 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
 
  
     <li class="treeview">
-        <a href="#">
+        <a href="#" data-toggle="collapse" data-target="#user">
             <i class="fa fa-user"></i> <span>Utilizadores</span>
             <i class="fa fa-angle-left pull-right"> </i>
         </a>
-        <ul class="treeview-menu">
+                                 <!-- EDITADO PARA COLLAPSE  -->
+                            <!-- <ul class="treeview-menu">  -->
+                            <ul id="user" class="collapse">
 
             <li>
-                <a href="<?php echo Url::toRoute('utilizadores/create'); ?>">
+                <a href="<?php echo Url::toRoute('user/admin/create'); ?>">
                     <i class="fa fa-user"></i> <span>Criar Utilizadores <span class="badge pull-right bg-red"><?php //echo User::find()->count()-3;?></span></span>
                 </a>
             </li>
@@ -537,12 +543,13 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
 
 
  <li class="treeview">
-                            <a href="<?php echo Url::toRoute('site/reports'); ?>">
+                            <a href="<?php echo Url::toRoute('site/reports'); ?>"  data-toggle="collapse" data-target="#report">
 								<i class="ion ion-pie-graph info"></i> RELAT&Oacute;RIOS DREAMS
                                 <small class="badge pull-right bg-green"><?= 2; ?></small></span>
 
                             </a>
-                            <ul class="treeview-menu">
+                            <!-- <ul class="treeview"> -->
+                            <ul id="report" class="collapse">
                                 <li><a href="<?php echo Url::toRoute('site/reports'); ?>">
                                   <i class="fa fa-angle-double-right"></i> GERAL</a>
                                 </li>
@@ -558,17 +565,41 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
                                 </li>
 
 <?php } ?>
-                                                            	<li>
-                                <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> INDICADORES DREAMS'), ['/beneficiarios/relatorio','id'=>5]) ?>
-                        </li>
+                                                            	<!-- <li>
+                               <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> INDICADORES DREAMS'), ['/beneficiarios/relatorioQ1','id'=>5]) ?> 
+                        </li>-->
                               
                               
+ 						<li class="treeview">
+                            <a href="#"  data-toggle="collapse" data-target="#apr">
+                                  <i class="fa fa-angle-double-right"></i> APR</a>
+                              <!-- <ul class="treeview"> -->
+                              <ul id="apr" class="collapse">
+                              <li>
+                                <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> Q1'), ['/beneficiarios/relatorio','id'=>5]) ?>
+                       			 </li>
+                          </ul>
                             </ul>
     </li>
 
                     </ul>
                 </section>
                 <!-- /.sidebar -->
+
+<!--
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">SISTEMAS
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#">DREAMS</a></li>
+    <li><a href="#">IMD</a></li>
+    <li><a href="#">VBG</a></li>
+  </ul>
+</div>
+-->
+
+
+
             </aside>
 <?php } ?>
 
