@@ -18,5 +18,5 @@ We will create a testing project on test.dreams.co.mz and will give access to al
 
 # Contribute
  
-Users and developers can contribute to make DREAMS code better by joining ou Development Team or by direct contact to the project Coordenator (Mr. Gerzelio Saide & Mr. Jcorda Cololo)
+Users and developers can contribute to make DREAMS code better by joining ou Development Team or by direct contact to the project Coordenator (Mr. Gerzelio Saide & Mr. Jcordao Cololo)
 
