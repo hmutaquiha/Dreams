@@ -52,9 +52,9 @@ class ReferenciasDreamsSearch extends ReferenciasDreams
       $ben_id=ArrayHelper::getColumn($bens, 'id');
        $referidos=ReferenciasDreams::find()->where(['IN','beneficiario_id',$ben_id])->andWhere(['status'=>1])->asArray()->all();
       $ids = ArrayHelper::getColumn($referidos, 'beneficiario_id');
-$query = ReferenciasDreams::find()->where(['IN','beneficiario_id',$ids])->orderBy(['criado_em' => SORT_DESC]);
+$query = ReferenciasDreams::find()->where(['IN','beneficiario_id',$ids])->andWhere(['status'=>1])->orderBy(['criado_em' => SORT_DESC]);
     } else {
-        $query = ReferenciasDreams::find()->orderBy(['criado_em' => SORT_DESC]);
+        $query = ReferenciasDreams::find()->where(['status'=>1])->orderBy(['criado_em' => SORT_DESC]);
 }
 
 // $query = ReferenciasDreams::find()->orderBy(['criado_em' => SORT_DESC]);;

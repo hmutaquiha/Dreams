@@ -20,7 +20,7 @@ use app\models\ComiteCargos;
 
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
-// use kartik\widgets\DatePicker;
+use kartik\widgets\DatePicker;
 use kartik\form\ActiveForm;
 use common\models\User;
 use app\models\Educacao;
@@ -44,8 +44,6 @@ use kartik\daterange\DateRangePicker;
 <div class="beneficiarios-form">
 
    <?php $form = ActiveForm::begin(); ?>
-
-
    
 
 
@@ -112,19 +110,42 @@ $this->registerJs($script);
 	  <?php if($model->isNewRecord) { ?>
 
 <div class="row">
-  <div class="col-lg-6">  <?= $form->field($model, 'emp_lastname')->textInput() ?></div>
+  <div class="col-lg-6">  <?= $form->field($model, 'emp_lastname')->textInput(['style' => 'text-transform:capitalize']) ?></div>
 
-    <div class="col-lg-6"> <?= $form->field($model, 'emp_firstname')->textInput() ?></div>
+    <div class="col-lg-6"> <?= $form->field($model, 'emp_firstname')->textInput(['style' => 'text-transform:capitalize']) ?></div>
 </div>
 <?php } elseif(isset(Yii::$app->user->identity->role)&&(Yii::$app->user->identity->role==20))
 { ?>
 	  <div class="row">
     <div class="col-lg-6">  <?= $form->field($model, 'emp_lastname')->textInput() ?></div>
-
+      <!-- 'text', array('onKeyPress'=>"return lettersOnly(event);") -->
       <div class="col-lg-6"> <?= $form->field($model, 'emp_firstname')->textInput() ?></div>
   </div>
 <?php }?>
 
+
+
+<?php
+
+
+$script = <<< JS
+
+ function lettersOnly(evt) {
+    evt = (evt) ? evt : event;
+    var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+        ((evt.which) ? evt.which : 0));
+    if (charCode > 31 && (charCode < 65 || charCode > 90) &&
+        (charCode < 97 || charCode > 122)) {
+        alert("Apenas letras.");
+        return false;
+    }
+    return true;
+}
+
+JS;
+$this->registerJs($script);
+
+?>
 	  
 <div class="row">
    <div class="col-lg-6">
@@ -142,11 +163,14 @@ $this->registerJs($script);
   'options'=>['class'=>'input-group drp-container']
 ])->widget(DateRangePicker::classname(), [
   'useWithAddon'=>true,
+  'readonly' => true,
   'pluginOptions'=>[
       'language'=>'pt',
       'singleDatePicker'=>true,
       'hideInput'=>true,
       'showDropdowns'=>true,
+      'maxYear' => 2012,
+      'minYear' => 1990,
       'autoclose'=>true,
       'locale' => ['format' => 'DD/MM/YYYY'],
   ]
@@ -244,9 +268,9 @@ isset(Yii::$app->user->identity->localidade_id)&&(Yii::$app->user->identity->loc
 </div>
 	<?php } ?>
 </div>
-	  <div class="row"> 
-		  <div class="col-lg-12">&nbsp; </div>
-	  </div>
+  <div class="row"> 
+    <div class="col-lg-12">&nbsp; </div>
+  </div>
  <div class="row">
 
    <div class="col-lg-4">  
@@ -274,29 +298,12 @@ isset(Yii::$app->user->identity->localidade_id)&&(Yii::$app->user->identity->loc
   <div class="panel-body">
 
 <div class="row"> 
-  <?php if(!$model->isNewRecord&&$model->emp_gender==2) { ?>
-    <div class="col-lg-4">
-  <?php } else {?>  <div class="col-lg-6"> <?php }?>
+  <!-- <?php if(!$model->isNewRecord&&$model->emp_gender==2) { ?> <div class="col-lg-4">
+  <?php } else {?>  <div class="col-lg-6"> <?php }?> -->
 
-    <?php
-    if(isset(Yii::$app->user->identity->provin_code)&&(Yii::$app->user->identity->provin_code>0)&&
-    isset(Yii::$app->user->identity->district_code)&&(Yii::$app->user->identity->district_code>0)&&
-    isset(Yii::$app->user->identity->localidade_id)&&(Yii::$app->user->identity->localidade_id>0))
-    {
-      echo  $form->field($model, 'bairro_id')->widget(Select2::classname(), [
-      'data' => ArrayHelper::map(Bairros::find()->where(['distrito_id'=>Yii::$app->user->identity->district_code])->asArray()->orderBy('name ASC')->all(), 'id', 'name'),'options' => ['placeholder' => 'Selecione o Bairro'],
-      'pluginOptions' => [
-                      'allowClear' => true
-                  ],
-      ]);
-} else {
-  echo  $form->field($model, 'bairro_id')->widget(Select2::classname(), [
-'data' => ArrayHelper::map(Bairros::find()->asArray()->orderBy('name ASC')->all(), 'id', 'name'),'options' => ['placeholder' => 'Selecione o Bairro'],
-'pluginOptions' => [
-              'allowClear' => true
-          ],
-]);
-} ?>
+
+        <!-- *********** O bairro de onde morra foi removido aqui *****************  -->
+
 
     <?php /* echo  $form->field($model, 'bairro_id')->widget(Select2::classname(), [
 'data' => ArrayHelper::map(Bairros::find()->asArray()->orderBy('name ASC')->all(), 'id', 'name'),'options' => ['placeholder' => 'Selecione o Bairro'], 
@@ -305,10 +312,10 @@ isset(Yii::$app->user->identity->localidade_id)&&(Yii::$app->user->identity->loc
                 ],
 ]);*/
 ?> 
-  </div>
+  <!-- </div> -->
 
   <?php if(!$model->isNewRecord&&$model->emp_gender==2) { ?>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
   <?php } else {?>  <div class="col-lg-6"> <?php }?>
 
  <?= $form->field($model, 'encarregado_educacao')->widget(Select2::classname(), [
@@ -322,12 +329,12 @@ isset(Yii::$app->user->identity->localidade_id)&&(Yii::$app->user->identity->loc
   </div>
 
 <?php if(!$model->isNewRecord&&$model->emp_gender==2) { ?>
-  <div class="col-lg-4">
-  <?= $form->field($model, 'house_sustainer')->checkBox([1 => 'SIM', 0 => 'NÃO']); ?>
+  <div class="col-lg-3">
+  <!-- <?= $form->field($model, 'house_sustainer')->checkBox([1 => 'SIM', 0 => 'NÃO']); ?> -->
+
+  <?= $form->field($model, 'house_sustainer')->widget(Select2::classname(),['data' => ['0' => 'NÃO','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],]); ?>
   </div>
 <?php } ?>
-
-
 
   </div>
 
@@ -367,15 +374,9 @@ elseif($model->ponto_entrada==2)
 
 {}
 
-
-}*/ else { }   
-	   
+}*/ else { }  	   
 	   
 ?>
-	   
-	   
-	   
-	   
  </div> 
  <div class="col-lg-6"> 
  
@@ -384,32 +385,49 @@ elseif($model->ponto_entrada==2)
 
 <div class="row">
 
-  <div class="col-lg-6" align="right"> 
-  <?=  $form->field($model, 'estudante')->checkBox([1 => 'SIM', NULL => 'NÃO']); ?>
+  <div class="col-lg-2" align="left"> 
+  <!-- <?=  $form->field($model, 'estudante')->checkBox([1 => 'SIM', NULL => 'NÃO']); ?> -->
+  <?= $form->field($model, 'estudante')->widget(Select2::classname(),['data' => ['0' => 'NÃO','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],]); ?>
+
+
  <?php //$form->field($model, 'estudante')->textInput(); ?>
  </div>
-  <div class="col-lg-6" align="left">  
-<?php $form->field($model, 'estudante_classe')->textInput(['placeholder'=>'Se SIM, que classe (frequenta ou frequentou)'])->label(false); ?>
-  <?= $form->field($model, 'estudante_classe')->dropDownList(array_combine(range(1, 12), range(1, 12)),array(
-        'prompt'=>'Se SIM, que classe (frequenta ou frequentou)',
-        'class' => 'form-control',
-    ),['onchange'=>''])->label(false) ?>
-</div>
+    <div class="col-lg-5" align="left">  
+      <?php $form->field($model, 'estudante_classe')->textInput(['placeholder'=>'Se SIM, que classe (frequenta ou frequentou)'])->label(false); ?>
+        <?= $form->field($model, 'estudante_classe')->dropDownList(array_combine(range(1, 12), range(1, 12)),array(
+              'prompt'=>'Se SIM, que classe (frequenta ou frequentou)',
+              'class' => 'form-control',
+          ),['onchange'=>''])->label() ?>
+    </div>
+  <div class="col-lg-5"> 
+    <?= $form->field($model, 'estudante_escola')->textInput(['placeholder'=>'Nome da Instituição de Ensino'])->label(); ?>
+
+    </div>
   </div>
 <div class="row">
 
-  <div class="col-lg-6"> 
-</div>
-  <div class="col-lg-6">  
-  <?= $form->field($model, 'estudante_escola')->textInput(['placeholder'=>'Nome da Instituição de Ensino'])->label(false); ?>
+  <div class="col-lg-6">
+     
+  </div>
+  <?php if(!$model->isNewRecord&&$model->emp_gender==2) { ?>
+  <div class="col-lg-12">
+
+  <?php } else{ ?>
+  <div class="col-lg-5"> 
+  <?php } ?>
+
+  <!-- <?= $form->field($model, 'estudante_escola')->textInput(['placeholder'=>'Nome da Instituição de Ensino'])->label(); ?> -->
  
   </div>
   
   </div>
 
 <div class="row">
-  <div class="col-lg-6"  align="right"> 
-  <?= $form->field($model, 'deficiencia')->checkBox(['data' => [1 => 'SIM', 0 => 'NÃO'],'options'=>['onchange'=>'alert ("Ola mundo!!!");']] ); ?>
+  <div class="col-lg-6"  align="left"> 
+  <!-- <?= $form->field($model, 'deficiencia')->checkBox(['data' => [1 => 'SIM', 0 => 'NÃO'],'options'=>['onchange'=>'alert ("Ola mundo!!!");']] ); ?> -->
+  <?= $form->field($model, 'deficiencia')->widget(Select2::classname(),['data' => ['0' => 'NÃO','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],]); ?>
+
+ 
  </div>
 
   <div class="col-lg-6"  align="left">
@@ -420,7 +438,7 @@ elseif($model->ponto_entrada==2)
 'Não Ouve'=>'Não Ouve',
 'Tem Algum Membro Amputado ou Deformado'=>'Tem Algum Membro Amputado ou Deformado',
 'Tem Algum atraso Mental'=>'Tem Algum atraso Mental']
-  ])->label(false); ?>
+  ])->label(); ?>
  </div>
  <div class="col-lg-1"></div>
 
@@ -429,25 +447,31 @@ elseif($model->ponto_entrada==2)
 <div class="row">
 
 <div class="col-lg-4">
-  <?= $form->field($model, 'married_before')->checkBox([1 => 'SIM', 0 => 'NÃO']
-  , ['selected'=>1]); ?>
+  <!-- <?= $form->field($model, 'married_before')->checkBox([1 => 'SIM', 0 => 'NÃO'], ['selected'=>1]); ?> -->
+  <?= $form->field($model, 'married_before')->widget(Select2::classname(),['data' => ['0' => 'NÃO','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],]); ?>
+
  </div>
 
   <div class="col-lg-4"> 
-  <?= $form->field($model, 'gravida')->checkBox([1 => 'SIM', 0 => 'NÃO']
-  , ['selected'=>1]); ?>
+  <!-- <?= $form->field($model, 'gravida')->checkBox([1 => 'SIM', 0 => 'NÃO'], ['selected'=>1]); ?> -->
+  <?= $form->field($model, 'gravida')->widget(Select2::classname(),['data' => ['0' => 'NÃO','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],]); ?>
+
  </div>
 
   <div class="col-lg-4">
-  <?= $form->field($model, 'filhos')->checkBox([1 => 'SIM', 0 => 'NÃO']); ?> 
+  <!-- <?= $form->field($model, 'filhos')->checkBox([1 => 'SIM', 0 => 'NÃO']); ?>  -->
+  <?= $form->field($model, 'filhos')->widget(Select2::classname(),['data' => ['0' => 'NÃO','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],]); ?>
+
  </div>
   </div>
 
 <div class="row">
- <div class="col-lg-10">
- <?= $form->field($model, 'pregant_or_breastfeed')->checkBox([1 => 'SIM', 0 => 'NÃO']); ?>
-</div>
+  <div class="col-lg-10">
+  <!-- <?= $form->field($model, 'pregant_or_breastfeed')->checkBox([1 => 'SIM', 0 => 'NÃO']); ?> -->
+  <?= $form->field($model, 'pregant_or_breastfeed')->widget(Select2::classname(),['data' => ['0' => 'NÃO','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],]); ?>
+
   </div>
+</div>
 
   <div class="row">
    <div class="col-lg-6">
@@ -460,7 +484,7 @@ elseif($model->ponto_entrada==2)
 
 <div class="col-lg-6">
 <?=  $form->field($model, 'tested_hiv')->widget(Select2::classname(),
-['data' => ['0' => 'Não','1' => 'SIM (>3 meses)','2' => 'SIM (<3 meses)'],
+['data' => ['0' => 'Não','1' => 'SIM ( + 3 meses)','2' => 'SIM ( - 3 meses)'],
 'options' => ['placeholder' => '--Selecione Aqui--'],
 'pluginOptions' => ['allowClear' => true],
  ]); ?>
@@ -489,20 +513,20 @@ elseif($model->ponto_entrada==2)
   <div class="panel-body">
  <div class="card card-block">
 <div class="row">  
-<div class="col-lg-6">
-<?= $form->field($model, 'emp_nick_name', [
-    'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-user"></i>']]])->textInput(['maxlength' => 100]) ?>
+  <div class="col-lg-6">
+    <?= $form->field($model, 'emp_nick_name', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-user"></i>']]])->textInput(['maxlength' => 100]) ?>
 
-   </div> 
+  </div> 
 
-<div class="col-lg-6"> 
-<?= $form->field($model, 'emp_street1', [
-    'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-home"></i>']]
-]);
- ?>  
-</div> 
+  <div class="col-lg-6"> 
+  <?= $form->field($model, 'emp_street1', [
+      'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-home"></i>']]
+  ]);
+  ?>  
+  </div> 
 
 </div>
+
 <div class="row">  
 
 <div class="col-lg-6"> <?= $form->field($model, 'emp_mobile', [
@@ -520,6 +544,31 @@ elseif($model->ponto_entrada==2)
 </div>
 	
  </div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <?php
+      if(isset(Yii::$app->user->identity->provin_code)&&(Yii::$app->user->identity->provin_code>0)&&
+      isset(Yii::$app->user->identity->district_code)&&(Yii::$app->user->identity->district_code>0)&&
+      isset(Yii::$app->user->identity->localidade_id)&&(Yii::$app->user->identity->localidade_id>0))
+      {
+        echo  $form->field($model, 'bairro_id')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(Bairros::find()->where(['distrito_id'=>Yii::$app->user->identity->district_code])->asArray()->orderBy('name ASC')->all(), 'id', 'name'),'options' => ['placeholder' => 'Selecione o Bairro'],
+        'pluginOptions' => [
+          'allowClear' => true
+        ],
+        ]);
+      } else {
+        echo  $form->field($model, 'bairro_id')->widget(Select2::classname(), [
+      'data' => ArrayHelper::map(Bairros::find()->asArray()->orderBy('name ASC')->all(), 'id', 'name'),'options' => ['placeholder' => 'Selecione o Bairro'],
+      'pluginOptions' => [
+        'allowClear' => true
+      ],
+      ]);
+    } ?>
+  </div>
+</div>
+
  <div class="row"> 
 <div class="col-lg-12">
 <?php $form->field($model, 'emp_street2')->textArea(['rows' => '3']) ?>
@@ -574,7 +623,7 @@ elseif($model->ponto_entrada==2)
     <tr> <td align="right" width="60%">Vítima de Exploração sexual?</td> <td width="10%">&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_exploracao_sexual')->widget(Select2::classname(),
 ['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['onchange' => 'var valor2 = this.value; if(valor2==0){$("#teste0").hide(1200);}else{$("#teste0").show(1200);} ', 'placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
 
-<tr id="teste0"> <td align="right">Tempo:</td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_vsex_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
+<tr id="teste0"> <td align="right">Tempo:</td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_vsex_tempo')->widget(Select2::classname(),['data' => ['0' => ' - 3 Dias','1' => ' + 3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
 
 
   <?php if($model->idade_anos>=18) {?>
@@ -623,7 +672,7 @@ elseif($model->ponto_entrada==2)
   ?>
   <tr id="teste1"> <td align="right">Tipo de Violéncia: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tipo_violencia')->widget(Select2::classname(),['data' => ['Fisica' => 'Fisica','Sexual' => 'Sexual','Pscologica' => 'Pscologica'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
 
-  <tr id="teste2"> <td align="right">Tempo: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
+  <tr id="teste2"> <td align="right">Tempo: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tempo')->widget(Select2::classname(),['data' => ['0' => ' - 3 Dias','1' => ' + 3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
   
 </table>
     
@@ -639,10 +688,18 @@ elseif($model->ponto_entrada==2)
   <b><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Outras Informações</b>
   </div>
   <div class="panel-body">
+    
+    
+    <!--   Por rever o bug nos filtros das organizacoes (04/03/2020) -->
 
-<?= $form->field($model, 'parceiro_id', [
+<?= $form->field($model, 'parceiro_benificiario_id', [
     'addon' => ['prepend' => ['content'=>'<i class="fa fa-male"></i>']]])->textInput(['maxlength' => 15,'placeholder'=>'NUI do Parceiro do Beneficiario']) ?>
 	  <?php $model->isNewRecord ?'': $form->field($model, 'via')->checkBox([1 => 'SIM', NULL => 'NÃO']); ?>
+    
+    <?php
+  		$model->parceiro_id = Yii::$app->user->identity->parceiro_id;
+	
+  	?>
 </div> 
  </div>
 

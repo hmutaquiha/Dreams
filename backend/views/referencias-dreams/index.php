@@ -167,7 +167,7 @@ $utils=Profile::find()->where(['=','id',$model->notificar_ao])->all();
                 },
                  'filter'=>ArrayHelper::map(
                    Profile::find()
-                 ->where(['IN','user_id',$notify_to])
+                 ->where(['IN','user_id',$ids])
                  ->andWhere(['<>','name',''])
                  ->orderBy('name ASC')
                  ->all(), 'id', 'name'

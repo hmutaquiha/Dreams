@@ -45,7 +45,7 @@ class BeneficiariosController extends Controller
     ],
                 'rules' => [
                     [
-                        'actions' => ['index','ready','view','create','lists','listas','servicos','localidades','bairros','todos','filtros','relatorio'],
+                        'actions' => ['index','view','create','lists','listas','servicos','localidades','bairros','todos','filtros','relatorio','relatoriofy19','relatoriofy20q1','relatoriofy20q2'],
 
                         'allow' => true,
                         'roles' => [
@@ -116,6 +116,59 @@ O digitadores so visualizam 5 Beneficiarios por lista**/
 	
 	
 	
+
+
+
+ 
+
+    /**
+     * Displays a single Beneficiarios model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionRelatoriofy19()
+    {
+        $model = new Beneficiarios();
+
+        return $this->render('relatorioFY19', [
+            'model' => $model,
+
+        ]);
+    }
+
+
+
+    /**
+     * Displays a single Beneficiarios model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionRelatoriofy20q1()
+    {
+        $model = new Beneficiarios();
+
+        return $this->render('relatorioFY20Q1', [
+            'model' => $model,
+
+        ]);
+    }
+
+    /**
+     * Displays a single Beneficiarios model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionRelatoriofy20q2()
+    {
+        $model = new Beneficiarios();
+
+        return $this->render('relatorioFY20Q2', [
+            'model' => $model,
+
+        ]);
+    }
+
+
     /**
      * Displays a single Beneficiarios model.
      * @param integer $id
@@ -152,6 +205,9 @@ O digitadores so visualizam 5 Beneficiarios por lista**/
         $model->emp_status = 1;
         $model->deficiencia = 0;
 		$model->ponto_entrada = 1;
+      
+      
+		/*$model->parceiro_id  = 0;*/	
 		
 		/*$model->provin_code = 5;
 		$model->district_code = 1;
@@ -356,10 +412,20 @@ echo "<option>-</option>";
 
 
 
-//added on 26.02.2019
+//added on 26.02.2019 relatorioQ1
     public function actionRelatorio($id)
   {
     return $this->render('relatorio', [
+        'model' => $this->findModel($id),
+    ]);
+  }
+  
+  
+
+//added on 11.02.2020 by Gerzelio Saide relatorioQ1
+    public function actionRelatorioQ1($id)
+  {
+    return $this->render('relatorioQ1', [
         'model' => $this->findModel($id),
     ]);
   }

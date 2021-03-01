@@ -43,8 +43,11 @@ use app\models\ServicosDream;
 </div>
 
  <div class="row">
- <div class="col-lg-6">
+ <div class="col-lg-3">
  <?= $form->field($model, 'status')->radioButtonGroup([1 => ' Activo', 0 => ' Inactivo']); ?>
+ </div> 
+  <div class="col-lg-3">
+ <?= $form->field($model, 'oculto')->radioButtonGroup([1 => ' Sim', 0 => ' Nao']); ?>
  </div> 
  </div>
 

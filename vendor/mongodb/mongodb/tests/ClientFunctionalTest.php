@@ -4,22 +4,37 @@ namespace MongoDB\Tests;
 
 use MongoDB\Client;
 use MongoDB\Driver\BulkWrite;
-use MongoDB\Driver\Command;
+use MongoDB\Driver\Manager;
+use MongoDB\Driver\Session;
 use MongoDB\Model\DatabaseInfo;
+use MongoDB\Model\DatabaseInfoIterator;
+use Symfony\Bridge\PhpUnit\SetUpTearDownTrait;
+use function call_user_func;
+use function is_callable;
+use function sprintf;
+use function version_compare;
 
 /**
  * Functional tests for the Client class.
  */
 class ClientFunctionalTest extends FunctionalTestCase
 {
+    use SetUpTearDownTrait;
+
+    /** @var Client */
     private $client;
 
-    public function setUp()
+    private function doSetUp()
     {
         parent::setUp();
 
-        $this->client = new Client($this->getUri());
+        $this->client = new Client(static::getUri());
         $this->client->dropDatabase($this->getDatabaseName());
+    }
+
+    public function testGetManager()
+    {
+        $this->assertInstanceOf(Manager::class, $this->client->getManager());
     }
 
     public function testDropDatabase()
@@ -45,17 +60,31 @@ class ClientFunctionalTest extends FunctionalTestCase
 
         $databases = $this->client->listDatabases();
 
-        $this->assertInstanceOf('MongoDB\Model\DatabaseInfoIterator', $databases);
+        $this->assertInstanceOf(DatabaseInfoIterator::class, $databases);
 
         foreach ($databases as $database) {
-            $this->assertInstanceOf('MongoDB\Model\DatabaseInfo', $database);
+            $this->assertInstanceOf(DatabaseInfo::class, $database);
         }
 
-        $that = $this;
-        $this->assertDatabaseExists($this->getDatabaseName(), function(DatabaseInfo $info) use ($that) {
-            $that->assertFalse($info->isEmpty());
-            $that->assertGreaterThan(0, $info->getSizeOnDisk());
+        $this->assertDatabaseExists($this->getDatabaseName(), function (DatabaseInfo $info) {
+            $this->assertFalse($info->isEmpty());
+            $this->assertGreaterThan(0, $info->getSizeOnDisk());
         });
+    }
+
+    public function testListDatabaseNames()
+    {
+        $bulkWrite = new BulkWrite();
+        $bulkWrite->insert(['x' => 1]);
+
+        $writeResult = $this->manager->executeBulkWrite($this->getNamespace(), $bulkWrite);
+        $this->assertEquals(1, $writeResult->getInsertedCount());
+
+        foreach ($this->client->listDatabaseNames() as $database) {
+            $this->assertIsString($database);
+        }
+
+        $this->assertContains($this->getDatabaseName(), $this->client->listDatabaseNames(), sprintf('Database %s does not exist on the server', $this->getDatabaseName()));
     }
 
     /**
@@ -66,7 +95,7 @@ class ClientFunctionalTest extends FunctionalTestCase
      * the given name is found, it will be passed to the callback, which may
      * perform additional assertions.
      *
-     * @param string $databaseName
+     * @param string   $databaseName
      * @param callable $callback
      */
     private function assertDatabaseExists($databaseName, $callback = null)
@@ -91,5 +120,13 @@ class ClientFunctionalTest extends FunctionalTestCase
         if ($callback !== null) {
             call_user_func($callback, $foundDatabase);
         }
+    }
+
+    public function testStartSession()
+    {
+        if (version_compare($this->getFeatureCompatibilityVersion(), '3.6', '<')) {
+            $this->markTestSkipped('startSession() is only supported on FCV 3.6 or higher');
+        }
+        $this->assertInstanceOf(Session::class, $this->client->startSession());
     }
 }

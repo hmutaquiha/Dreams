@@ -1,6 +1,19 @@
 Yii Framework 2 mongodb extension Change Log
 ============================================
 
+2.1.11 December 23, 2020
+------------------------
+
+- Bug #327: Fix `yii\mongodb\BatchQueryResult` to be compatible with PECL MongoDb 1.9.0 driver (bizley)
+
+
+2.1.10 November 10, 2020
+------------------------
+
+- Bug #308: Fix `yii\mongodb\file\Upload::addFile()` error when uploading file with readonly permissions (sparchatus)
+- Enh #319: Added support for the 'session.use_strict_mode' ini directive in `yii\web\Session` (rhertogh)
+
+
 2.1.9 November 19, 2019
 -----------------------
 

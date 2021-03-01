@@ -45,40 +45,6 @@ use app\models\PontosDeEntrada;
    <?php $form = ActiveForm::begin(); ?>
 
 
-   <?php
-
-$script = <<< JS
-
-
-   $(document).ready(function () { 
-
-     if($("beneficiarios-vbg_vitima").val()==1){
-        $("#teste1").show();
-        $("#teste2").show();
-
-     }else{
-        $("#teste1").hide();
-        $("#teste2").hide();
-     }
-
-     if($("beneficiarios-vbg_exploracao_sexual").val()==1){
-        $("#teste0").show();
-
-     }else{
-        $("#teste0").hide();
-     }
-  });       
-
-JS;
-$this->registerJs($script);
-
-?>
-
-
-
-
-
-
 <div class="row">
   <div class="col-lg-6">
 
@@ -549,9 +515,9 @@ elseif($model->ponto_entrada==2)
     ])->label(false); ?></td></tr>
   
     <tr> <td align="right" width="60%">Vítima de Exploração sexual?</td> <td width="10%">&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_exploracao_sexual')->widget(Select2::classname(),
-['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['onchange' => 'var valor2 = this.value; if(valor2==0){$("#teste0").hide(1200);}else{$("#teste0").show(1200);} ', 'placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
+['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
 
-<tr id="teste0"> <td align="right">Tempo:</td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_vsex_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
+<tr id="teste2"> <td align="right">Tempo:</td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_vsex_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
 
 
   <?php if($model->idade_anos>=18) {?>
@@ -559,12 +525,12 @@ elseif($model->ponto_entrada==2)
 ->widget(Select2::classname(),['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
 <?php }?>
   
-  <tr> <td align="right">Vítima de Violéncia Baseada no Gênero?</td><td>&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_vitima')->widget(Select2::classname(),[ 'data' => ['0' => 'Não','1' => 'SIM'], 'options' => ['onchange' => 'var valor2 = this.value; if(valor2==0){$("#teste1").hide(1200);$("#teste2").hide(1000);}else{$("#teste1").show(1200);$("#teste2").show(1000);} ', 'placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
+  <tr id="teste0"> <td align="right">Vítima de Violéncia Baseada no Gênero?</td><td>&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_vitima')->widget(Select2::classname(),['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
   
   
-  <tr id="teste1"> <td align="right">Tipo de Violéncia: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tipo_violencia')->widget(Select2::classname(),['data' => ['Fisica' => 'Fisica','Sexual' => 'Sexual','Pscologica' => 'Pscologica'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
+    <tr id="teste1"> <td align="right">Tipo de Violéncia: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tipo_violencia')->widget(Select2::classname(),['data' => ['Fisica' => 'Fisica','Sexual' => 'Sexual','Pscologica' => 'Pscologica'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
 
-  <tr id="teste2"> <td align="right">Tempo: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
+    <tr id="teste2"> <td align="right">Tempo: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
   
 </table>
     

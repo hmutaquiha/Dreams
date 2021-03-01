@@ -31,7 +31,7 @@ $this->title = $model->emp_firstname." ".$model->emp_middle_name." ".$model->emp
 
   $this->title = $model->distrito['cod_distrito'].'/'.$model->member_id;
 }
-$this->params['breadcrumbs'][] = ['label' => 'Beneficiários', 'url' => [' ']];
+$this->params['breadcrumbs'][] = ['label' => 'Beneficiários', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -228,18 +228,18 @@ date("Y")-substr(date($model->emp_birthday, strtotime($model->emp_birthday)),-4)
       <div class="panel panel-info">
   <div class="panel-heading"> Parceiro/Acompanhante</div>
   <div class="panel-body"> 
-<?php if($model->parceiro_id>0) { ?> 
+<?php if($model->parceiro_benificiario_id>0) { ?> 
 <?php $gender=$model->parceiro['emp_gender'] == 1 ? '<i class="fa fa-male"></i>' : '<i class="fa fa-female"></i>'?>
 <?php
 
 if(isset($model->parceiro->distrito['cod_distrito'])&& $model->parceiro->distrito['cod_distrito']>0){
 
-echo  Html::a($model->parceiro->distrito['cod_distrito'].'/'.$model->parceiro['member_id'].' '.$gender, ['beneficiarios/view','id'=>$model->parceiro_id], ['class' => 'btn btn-success']); 
+echo  Html::a($model->parceiro->distrito['cod_distrito'].'/'.$model->parceiro['member_id'].' '.$gender, ['beneficiarios/view','id'=>$model->parceiro_benificiario_id], ['class' => 'btn btn-success']); 
 }else {
-echo '<font color=red>Parceiro com Nr='.$model->distrito['cod_distrito'].'/'.$model->parceiro_id.' n&atilde;o existe</font>';
+echo '<font color=red>Parceiro com Nr='.$model->distrito['cod_distrito'].'/'.$model->parceiro_benificiario_id.' n&atilde;o existe</font>';
 }
 
- // Html::a($model->parceiro->distrito['cod_distrito'].'/'.$model->parceiro['member_id'].' '.$gender, ['beneficiarios/view','id'=>$model->parceiro_id], ['class' => 'btn btn-success']); 
+ // Html::a($model->parceiro->distrito['cod_distrito'].'/'.$model->parceiro['member_id'].' '.$gender, ['beneficiarios/view','id'=>$model->parceiro_benificiario_id], ['class' => 'btn btn-success']); 
 
 
 
@@ -358,7 +358,7 @@ foreach($query as $query) {		?>
 <?php //if (isset(Yii::$app->user->identity->role)&&Yii::$app->user->identity->role>15) {echo $query->subServicos['name'];} else {echo "-";} ?> 
 <?php if (isset(Yii::$app->user->identity->role)&&(Yii::$app->user->identity->role>15))
 {echo $query->subServicos['name'];}
-elseif($query->servicos['oculto']==0) {echo $query->subServicos['name'];}  ?>
+elseif(($query->servicos['oculto']==0)&&($query->subServicos['oculto']==0)) {echo $query->subServicos['name'];}  ?>
 
 </td> 
 <td  class='quota_id'> <?= $query->us['name']; ?> </td> 

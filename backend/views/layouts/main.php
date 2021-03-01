@@ -211,7 +211,7 @@ MaterialAsset::register($this);}
                         <?php } ?>
                                                 <li>
                             <a href="<?php echo Url::toRoute('user/admin/index'); ?>">
-                                <i class="fa fa-user"></i> <span>Utilizadores <span class="badge pull-right bg-red"><?php echo User::find()->count()-3;?></span></span>
+                                <i class="fa fa-user"></i> <span>Utilizadores <span class="badge pull-right bg-red"><?php // User::find()->count()-3;?></span></span>
                             </a>
                         </li>
     </ul>
@@ -530,7 +530,7 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
           
             <li>
                 <a href="<?php echo Url::toRoute('utilizadores/index'); ?>">
-                    <i class="fa fa-user"></i> <span>Listar Utilizadores <span class="badge pull-right bg-red"><?php echo User::find()->count()-3;?></span></span>
+                    <i class="fa fa-user"></i> <span>Listar Utilizadores <span class="badge pull-right bg-red"><?php // echo User::find()->count()-3;?></span></span>
                 </a>
             </li>
 
@@ -543,7 +543,7 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
 
 
  <li class="treeview">
-                            <a href="<?php echo Url::toRoute('site/reports'); ?>"  data-toggle="collapse" data-target="#report">
+                            <a href="#"  data-toggle="collapse" data-target="#report">
 								<i class="ion ion-pie-graph info"></i> RELAT&Oacute;RIOS DREAMS
                                 <small class="badge pull-right bg-green"><?= 2; ?></small></span>
 
@@ -565,19 +565,23 @@ $ben=Beneficiarios::find()->where(['provin_code'=>5])->andWhere(['emp_status'=>1
                                 </li>
 
 <?php } ?>
-                                                            	<!-- <li>
-                               <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> INDICADORES DREAMS'), ['/beneficiarios/relatorioQ1','id'=>5]) ?> 
-                        </li>-->
-                              
-                              
- 						<li class="treeview">
+                                                            	 <li>
+                               <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> FY19'), ['/beneficiarios/relatoriofy19','id'=>5]) ?> 
+                        </li>
+
+		<li class="treeview">
                             <a href="#"  data-toggle="collapse" data-target="#apr">
-                                  <i class="fa fa-angle-double-right"></i> APR</a>
+                                  <i class="fa fa-angle-double-right"></i> FY20</a>
                               <!-- <ul class="treeview"> -->
                               <ul id="apr" class="collapse">
                               <li>
-                                <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> Q1'), ['/beneficiarios/relatorio','id'=>5]) ?>
-                       			 </li>
+                                <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> Q1'), ['/beneficiarios/relatoriofy20q1']) ?>
+                       	     </li>
+
+                              <li>
+                                <?= Html::a(Yii::t('app', '<i class="fa fa-angle-double-right"></i> Q2'), ['/beneficiarios/relatoriofy20q2']) ?>
+                             </li>
+
                           </ul>
                             </ul>
     </li>

@@ -30,16 +30,9 @@ $this->title = 'DREAMS - SISTEMA INTEGRADO DE CADASTRO DE ADOLESCENTES E JOVENS'
 /*ini_set('max_execution_time', 2400); //300 seconds = 5 minutes
 ini_set('memory_limit', '-1');*/
 //ini_set('memory_limit', '2048M');
-include ("reports/regional.php"); ?> 
-		  
-		
-		
-		  
-		  
-		  
+//include ("reports/regional.php"); ?>
 		 </div>
 		 </div>
-	  
 <div class="col-lg-8"> 
 <div class="panel panel-success">
   <div class="panel-heading"> <strong align="center"><i class="ion ion-pie-graph info"></i> CADASTROS POR PROVINCIA</strong></div>
@@ -60,22 +53,6 @@ if (isset(Yii::$app->user->identity->role)&&(Yii::$app->user->identity->role==20
 }
 
 ?>
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
 	<!--  
  <div class="row"> 
 <div class="col-md-6">
@@ -96,7 +73,6 @@ if (isset(Yii::$app->user->identity->role)&&(Yii::$app->user->identity->role==20
 <div id="maputo" style="height: 250px; width: 100%;"></div>
  </div>
  </div>
-
 -->
 
   
@@ -105,6 +81,7 @@ if (isset(Yii::$app->user->identity->role)&&(Yii::$app->user->identity->role==20
  $zambezia = Beneficiarios::find()->where(['provin_code'=>8])->andWhere(['emp_status'=>1])->count();
  $gaza = Beneficiarios::find()->where(['provin_code'=>3])->andWhere(['emp_status'=>1])->count();
  $maputo = Beneficiarios::find()->where(['provin_code'=>1])->andWhere(['emp_status'=>1])->count();
+ $maputo_cidade = Beneficiarios::find()->where(['provin_code'=>2])->andWhere(['emp_status'=>1])->count();
 ?>
 
 

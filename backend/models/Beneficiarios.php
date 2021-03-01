@@ -92,14 +92,13 @@ class Beneficiarios extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-
-            [['emp_firstname'], 'match', 'not'=>true, 'pattern' => '/[^a-zA-Z]+[a-zA-Z]/', 'message'=>'Apenas letras são válidas!'],
-            [['emp_lastname'], 'match', 'not'=>true, 'pattern' => '/[^a-zA-Z]+[a-zA-Z]/', 'message'=>'Apenas letras são válidas!'],
-            [['emp_number', 'membro_zona', 'membro_circulo', 'membro_celula', 'membro_localidade_id', 'emp_smoker', 'nation_code', 'emp_gender', 'emp_status', 'job_title_code', 'eeo_cat_code', 'work_station', 'termination_id', 'criado_por', 'actualizado_por','us_id','parceiro_id','via', 'vbg_tempo', 'vbg_vsex_tempo'], 'integer'],
+            [['emp_firstname'], 'match', 'not'=>true, 'pattern' => '/[^a-zA-Z_-àáâãèéêìíòóõúçÀÁÂÃÈÉÊÌÍÒÓÕÚÇ]/', 'message'=>'Apenas letras são válidas!'],
+            [['emp_lastname'], 'match', 'not'=>true, 'pattern' => '/[^a-zA-Z_-àáâãèéêìíòóõúçÀÁÂÃÈÉÊÌÍÒÓÕÚÇ\s]/', 'message'=>'Apenas letras são válidas!'],
+            [['emp_number', 'parceiro_benificiario_id', 'membro_zona', 'membro_circulo', 'membro_celula', 'membro_localidade_id', 'emp_smoker', 'nation_code', 'emp_gender', 'emp_status', 'job_title_code', 'eeo_cat_code', 'work_station', 'termination_id', 'criado_por', 'actualizado_por','us_id','parceiro_id','via', 'vbg_tempo', 'vbg_vsex_tempo'], 'integer'],
 		[['emp_mobile'], 'integer', 'message' => 'O valor do {attribute} só pode ter números'],
 [['idade_anos'], 'integer', 'min' => 10, 'message' => 'O valor da {attribute} não pode ser menor que 10'],
 [['parceiro_id'],'integer','message'=>'O Valor {attribute} não existe'],
-            [['district_code','emp_lastname','emp_firstname', 'emp_gender', 'provin_code','ponto_entrada','bairro_id','encarregado_educacao'], 'required'],
+            [['emp_birthday','district_code','emp_lastname','emp_firstname', 'emp_gender', 'provin_code','ponto_entrada','bairro_id','encarregado_educacao'], 'required'],
             [['emp_dri_lice_exp_date', 'joined_date', 'criado_em', 'actualizado_em','deficiencia_tipo','estudante','estudante_classe','estudante_escola','gravida','filhos','deficiencia','house_sustainer','married_before','pregant_or_breastfeed','employed','tested_hiv','vbg_vitima_trafico','vbg_exploracao_sexual','vbg_migrante_trafico','vbg_sexual_activa','vbg_relacao_multipla','vbg_vitima','vbg_sex_worker'], 'safe'],
             [['member_id', 'membro_caratao_eleitor', 'membro_cargo_partido_id', 'emp_hm_telephone',  'emp_work_telephone', 'emp_work_email', 'emp_oth_email', 'bi_data_i', 'bi_data_f', 'nuit_data_i', 'nuit_data_f', 'user_location'], 'string', 'max' => 50],
             [['emp_lastname', 'emp_firstname', 'emp_middle_name', 'emp_nick_name', 'emp_ssn_num', 'emp_sin_num', 'emp_other_id', 'emp_dri_lice_num', 'emp_military_service', 'emp_street1', 'emp_street2', 'city_code', 'coun_code', 'provin_code', 'district_code'], 'string', 'max' => 100],
@@ -145,7 +144,8 @@ public function getFullName() {
             'emp_firstname' => 'Nome',
             'emp_middle_name' => 'Nome do meio',
             'emp_nick_name' => 'Alcunha',
-            'parceiro_id' =>'NUI do Parceiro do Beneficiario',
+            'parceiro_id' =>'Parceiro Dreams',
+          	'parceiro_benificiario_id' => 'NUI do Parceiro do Beneficiario',
 	    'via'=>'Segunda Via',
             'idade_anos' =>'Idade (em anos)',
             'estudante' =>'Vai a Escola',
@@ -231,6 +231,7 @@ public function getFullName() {
             'vbg_tipo_violencia' => 'Tipo de Violéncia:',
             'vbg_tempo' => 'Tempo: ',
             'vbg_vsex_tempo' => 'Tempo: ',
+          	'parceiro_benificiario_id' => ' ',
         ];
     }
 
@@ -242,6 +243,8 @@ public function getFullName() {
      $this->criado_em=date("Y-m-d H:i:s"); 
      $this->criado_por=Yii::$app->user->identity->id;
      $this->user_location=Yii::$app->request->userIP;
+     // Linha adicionada para parceiro Dreams / Gerzelio 03/03/2020
+     $this->parceiro_id = Yii::$app->user->identity->parceiro_id;
      $this->coun_code="MZ";
 
      $ben=Beneficiarios::find()
@@ -281,6 +284,8 @@ switch ($len) {
         $this->actualizado_em=date("Y-m-d H:i:s");
         $this->actualizado_por=Yii::$app->user->identity->id;
         $this->user_location2=Yii::$app->request->userIP;
+      	// Linha adicionada para parceiro Dreams / Gerzelio 03/03/2020
+     	$this->parceiro_id = Yii::$app->user->identity->parceiro_id;
         $this->coun_code="MZ"; }
     return parent::beforeSave($insert); 
 }

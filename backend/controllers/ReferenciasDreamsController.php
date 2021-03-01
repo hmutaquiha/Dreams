@@ -46,7 +46,7 @@ class ReferenciasDreamsController extends Controller
             ],
             'rules' => [
             [
-            'actions' => ['index','create','projecto','view','notificar'],
+            'actions' => ['index','create','projecto','view','notificar', 'local'],
 
             'allow' => true,
             'roles' => [
@@ -251,6 +251,32 @@ $dists = ArrayHelper::getColumn($distritos, 'district_code');
 
     $countUser=Utilizadores::find()
     ->where(['=','parceiro_id',$id])
+    ->asArray()->all();
+   $ids=ArrayHelper::getColumn($countUser,'id');
+
+   $profiles=Profile::find()
+   ->where(['IN','user_id',$ids])
+   ->andWhere(['<>','name',''])
+   ->orderBy('name ASC')
+   ->all();
+    echo "<option>-</option>";
+      foreach($profiles as $nomes)
+          { echo "<option value='".$nomes->id."'>".$nomes->name."</option>";}
+                        }else
+                      { echo "<option>-</option>";}
+}
+
+  
+  
+ public function actionLocal($id)
+{
+  $countUsers=Utilizadores::find()
+  ->where(['=','us_id',$id])
+  ->count();
+  if($countUsers>0) {
+
+    $countUser=Utilizadores::find()
+    ->where(['=','us_id',$id])
     ->asArray()->all();
    $ids=ArrayHelper::getColumn($countUser,'id');
 

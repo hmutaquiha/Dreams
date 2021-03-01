@@ -1,6 +1,18 @@
 Change Log: `yii2-grid`
 =======================
 
+## Version 3.3.5
+
+**Date:** 27-Mar-2020
+
+- (enh #948): New property `ExpandRowColumn::msgDetailLoading`.
+- (enh #947): Enhance behavior for initial rows expanded set via GridView::ROW_EXPANDED.
+- (enh #940): Set dependency on `kartik-v/yii2-bootstrap4-dropdown`.
+- (enh #934, #938): Correct ternary operator for PHP 7.4 support.
+- (enh #932): Correct Expand Row container parsing for nested expand row columns.
+- (enh #929): Enhance Expand Row Column plugin and correct expand one only.
+- (bug #911): Correct `slugColHeads` usage in JSON export script.
+
 ## Version 3.3.4
 
 **Date:** 26-Aug-2019

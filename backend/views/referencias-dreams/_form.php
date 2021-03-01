@@ -186,12 +186,17 @@ echo  Html::activeDropDownList($model, 'referido_por', ArrayHelper::map(Profile:
 		</div>
 
 		<div class="col-lg-4">
-			 <?php $form->field($model, 'intervensao')->widget(Select2::classname(), [
+			 <?php  $form->field($model, 'intervensao')->widget(Select2::classname(), [
       'data' => ArrayHelper::map(ServicosDream::find()->orderBy('name ASC')->asArray()->all(), 'name', 'name'),
       'options' => ['placeholder' => 'Selecione o Serviço'],
       'pluginOptions' => ['allowClear' => true],
-  ]);
+  ]); 
   ?>
+         
+  
+          
+          
+          
 	 <?php /* $form->field($model, 'intervensao')->widget(Select2::classname(), [
       'data' => ArrayHelper::map(ServicosDream::find()->orderBy('name ASC')->asArray()->all(), 'name', 'name'),
       'options' => ['multiple'=>'multiple' ,'placeholder' => 'Selecione os Servicos'],
@@ -206,16 +211,36 @@ echo  Html::activeDropDownList($model, 'referido_por', ArrayHelper::map(Profile:
 
 			</div>
 
+      
+  
+   <!--         		/* editado */ 				 -->
+      
 <div class="row">
 <div class="col-lg-4">	
-	   <?= $form->field($pontos, 'receptor_id')->widget(Select2::classname(), [
-    'data' =>ArrayHelper::map(Us::find()
-    ->where(['=','provincia_id',Yii::$app->user->identity->provin_code])->orderBy('name ASC')
- //  ->andWhere(['<>','id',Yii::$app->user->identity->us_id])->orderBy('name ASC')
-    ->all(), 'id', 'name'),
-    	'options' => ['placeholder' => 'Encaminhar para...'],
-        'pluginOptions' => ['allowClear' => true],]);
+  
+  <?= $form->field($pontos, 'receptor_id')
+	       ->dropDownList(['data' => ArrayHelper::map(Us::find()
+    	->where(['=','provincia_id',Yii::$app->user->identity->provin_code])->orderBy('name ASC')
+         ->asArray()->all(), 'id', 'name')],['prompt' => '--',
+          'onchange' => '$.post("local.dreams?id='.'"+$(this).val(), function(data) {
+             $("select#referenciasdreams-notificar_ao").html(data);
+          });',
+        ]); ?> 
+  
+  
+	   <?php
+    // $form->field($pontos, 'receptor_id')->widget(Select2::classname(), [
+    // 'data' =>ArrayHelper::map(Us::find()
+   // ->where(['=','provincia_id',Yii::$app->user->identity->provin_code])->orderBy('name ASC')
+ // // ->andWhere(['<>','id',Yii::$app->user->identity->us_id])->orderBy('name ASC')
+   // ->all(), 'id', 'name'),
+   // 	'options' => ['placeholder' => 'Encaminhar para...'],
+   //     'pluginOptions' => ['allowClear' => true],]);
     ?>
+  
+  
+  
+  
 	   <?php /* $form->field($pontos, 'receptor_id')->widget(Select2::classname(), [
     'data' =>ArrayHelper::map(Us::find()
     ->where(['=','provincia_id',Yii::$app->user->identity->provin_code])
@@ -238,19 +263,18 @@ $ids = ArrayHelper::getColumn($users, 'id');
 <?= $form->field($model, 'notificar_ao')->widget(Select2::classname(), [
 'data' => ArrayHelper::map(Profile::find()
 ->where(['IN','user_id',$ids])	
-->andWhere(['<>','name',''])						   
-->orderBy('name ASC')
+->andWhere(['<>','name',''])					   
+->orderBy('name ASC')     	                           
 ->all(), 'id', 'name'),'options' => ['placeholder' => 'Selecione ...'],
 'pluginOptions' => [
                 'allowClear' => true
             ],
 ]);  ?>
 
-
-
-
+  
 	
     </div>
+  
     </div>
 
     <div class="row">

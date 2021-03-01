@@ -8,7 +8,7 @@
 namespace yii\authclient;
 
 use yii\base\Exception;
-use yii\base\InvalidParamException;
+use yii\base\InvalidArgumentException;
 use Yii;
 use yii\httpclient\Request;
 
@@ -18,10 +18,10 @@ use yii\httpclient\Request;
  * @see http://oauth.net/
  *
  * @property OAuthToken $accessToken Auth token instance. Note that the type of this property differs in
- * getter and setter. See [[getAccessToken()]] and [[setAccessToken()]] for details.
+ * getter and setter. See [[getAccessToken()]]  and [[setAccessToken()]] for details.
  * @property string $returnUrl Return URL.
  * @property signature\BaseMethod $signatureMethod Signature method instance. Note that the type of this
- * property differs in getter and setter. See [[getSignatureMethod()]] and [[setSignatureMethod()]] for details.
+ * property differs in getter and setter. See [[getSignatureMethod()]]  and [[setSignatureMethod()]] for details.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
@@ -66,7 +66,8 @@ abstract class BaseOAuth extends BaseClient
      */
     private $_returnUrl;
     /**
-     * @var OAuthToken|array access token instance or its array configuration.
+     * @var OAuthToken|array|null access token instance, its array configuration or null that means that token would be
+     * restored from token store.
      */
     private $_accessToken;
     /**
@@ -96,7 +97,7 @@ abstract class BaseOAuth extends BaseClient
 
     /**
      * Sets access token to be used.
-     * @param array|OAuthToken $token access token or its configuration.
+     * @param array|OAuthToken|null $token access token or its configuration. Set to null to restore token from token store.
      */
     public function setAccessToken($token)
     {
@@ -122,12 +123,12 @@ abstract class BaseOAuth extends BaseClient
     /**
      * Set signature method to be used.
      * @param array|signature\BaseMethod $signatureMethod signature method instance or its array configuration.
-     * @throws InvalidParamException on wrong argument.
+     * @throws InvalidArgumentException on wrong argument.
      */
     public function setSignatureMethod($signatureMethod)
     {
         if (!is_object($signatureMethod) && !is_array($signatureMethod)) {
-            throw new InvalidParamException('"' . get_class($this) . '::signatureMethod" should be instance of "\yii\autclient\signature\BaseMethod" or its array configuration. "' . gettype($signatureMethod) . '" has been given.');
+            throw new InvalidArgumentException('"' . get_class($this) . '::signatureMethod" should be instance of "\yii\autclient\signature\BaseMethod" or its array configuration. "' . gettype($signatureMethod) . '" has been given.');
         }
         $this->_signatureMethod = $signatureMethod;
     }
@@ -305,8 +306,10 @@ abstract class BaseOAuth extends BaseClient
     public function beforeApiRequestSend($event)
     {
         $accessToken = $this->getAccessToken();
-        if (!is_object($accessToken) || !$accessToken->getIsValid()) {
+        if (!is_object($accessToken) || (!$accessToken->getIsValid() && !$this->autoRefreshAccessToken)) {
             throw new Exception('Invalid access token.');
+        } elseif ($accessToken->getIsExpired() && $this->autoRefreshAccessToken) {
+            $accessToken = $this->refreshAccessToken($accessToken);
         }
 
         $this->applyAccessTokenToRequest($event->request, $accessToken);

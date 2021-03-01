@@ -1,6 +1,25 @@
 Yii Framework 2 authclient extension Change Log
 ===============================================
 
+2.2.9 November 13, 2020
+-----------------------
+
+- Bug #312: do not refresh access token if it is not expired (albertborsos)
+
+
+2.2.8 November 10, 2020
+-----------------------
+
+- Bug #309: Try to refresh token in `BaseOAuth->beforeApiRequestSend()` if `BaseOAuth->autoRefreshAccessToken = true` instead of throwing "Invalid access token" exception (marty-macfly)
+- Bug #311: Fix PHP 8 compatibility (samdark)
+
+
+2.2.7 February 12, 2020
+-----------------------
+
+- Bug #292: Updated GitHub token transfer method according to https://developer.github.com/changes/2019-11-05-deprecated-passwords-and-authorizations-api/#authenticating-using-query-parameters (raidkon)
+
+
 2.2.6 November 19, 2019
 -----------------------
 

@@ -30,7 +30,7 @@ AdminAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'MEMBROS',
+                'brandLabel' => 'BENEFICIARIOS',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-frelimo navbar-fixed-top',

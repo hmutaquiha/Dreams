@@ -22,6 +22,7 @@ use app\models\ComiteLocalidades;
 use app\models\TipoCargos;
 use app\models\JobCategory;
 use app\models\ServicosBeneficiados;
+use app\models\TipoServicos;
 
 use app\models\ServicosDream;
 
@@ -43,10 +44,10 @@ if(!isset($model->member_id)) {  } else { $num=(int)$model->member_id;
     <div class="row">
 
 
-<div class="col-xs-5">
+<!-- <div class="col-xs-5"> -->
 
   <!-- Total Services -->
-  <div class="col-xs-6">
+  <div class="col-xs-12">
   <?php
   $tservicos= ServicosDream::find()->where(['=', 'status', 1])->count();
   $servicos= ServicosDream::find()->where(['=', 'status', 1])->all();
@@ -61,7 +62,7 @@ if(!isset($model->member_id)) {  } else { $num=(int)$model->member_id;
 
   ?>
 	  
-
+<!-- 
   <div  id="A<?= $num?>">
 	  
 	   <div class="inner-content text-center">
@@ -71,7 +72,7 @@ if(!isset($model->member_id)) {  } else { $num=(int)$model->member_id;
                             <div class="slice"><div class="bar"></div><div class="fill"></div></div>
                         </div>                   
      </div>	  
-  </div>
+  </div> -->
 
 
   </div>
@@ -93,7 +94,8 @@ foreach ($cservicos as $core) {
 }
 
 ?>
-<div id="B<?= $num?>"> 
+
+<!-- <div id="B<?= $num?>"> 
 
 	   <div class="inner-content text-center">
 				<p><em>Core-Services</em></p>
@@ -104,7 +106,7 @@ foreach ($cservicos as $core) {
      </div>	 	
 		
 	
-		 </div>
+		 </div> -->
 </div>
 <!-- Fim Core Services-->
 
@@ -125,7 +127,7 @@ foreach ($cliservicos as $core) {
 }
 
 ?>
-<div id="C<?= $num?>"> 
+<!-- <div id="C<?= $num?>"> 
 	
 		   <div class="inner-content text-center">
 				<p><em>Servi&ccedil;os Clinicos</em></p>
@@ -134,7 +136,7 @@ foreach ($cliservicos as $core) {
                             <div class="slice"><div class="bar"></div><div class="fill"></div></div>
                         </div>                   
      </div>	  		
-	 </div>
+	 </div> -->
 </div>
 <!-- Fim Clinic Services-->
 
@@ -155,7 +157,7 @@ foreach ($comservicos as $core) {
 }
 
 ?>
-<div id="D<?= $num?>"> 
+<!-- <div id="D<?= $num?>"> 
 	
 		   <div class="inner-content text-center">
 				<p><em>Servi&ccedil;os Comunitarios</em></p>
@@ -164,17 +166,17 @@ foreach ($comservicos as $core) {
                             <div class="slice"><div class="bar"></div><div class="fill"></div></div>
                         </div>                   
      </div>	
-	 </div>
+	 </div> -->
 </div>
 <!-- Fim Community Services-->
 
 
 
 
-</div>
+<!-- </div> -->
 
 
-<div class="col-xs-7">
+<div class="col-xs-12">
 
   <!--copy from here -->
   <div class="col-lg-12">
@@ -225,7 +227,7 @@ foreach ($comservicos as $core) {
 
            <table class="table table-bordered table-responsive">
      <thead>
-    <tr> <th> Data</th> <th>Serviço</th><th>  Interven&ccedil;&otilde;es</th><th>Ponto de Entrada</th>  <th> #  </th> </tr>
+    <tr> <th> Data</th> <th>Tipo de Serviço</th> <th>Serviço</th><th>  Interven&ccedil;&otilde;es</th><th>Ponto de Entrada</th>  <th> #  </th> </tr>
     </thead>
       <tbody>
     <?php $queryC = ServicosBeneficiados::find()->where(['=','beneficiario_id',$model->member_id])->count();
@@ -239,13 +241,17 @@ foreach ($comservicos as $core) {
 
     <tr>
   <td class='data_pagamento'> <?= date('d-m-Y', strtotime($query->data_beneficio)) ?>  </td>
+  <?php  
+    $queryTipoServico = TipoServicos::findOne($query->servicos['servico_id']);
+  ?>
+  <td  class='quota_id'> <?= $queryTipoServico['name']; ?> </td>
   <td  class='quota_id'> <?= $query->servicos['name']; ?> </td>
   <td  class='quota_id'> 
 <?php /*if (isset(Yii::$app->user->identity->role)&&Yii::$app->user->identity->role>15) {echo $query->subServicos['name'];} else {echo "-";} */ ?> 
 
 <?php if (isset(Yii::$app->user->identity->role)&&(Yii::$app->user->identity->role>15))
 {echo $query->subServicos['name'];}
-elseif($query->servicos['oculto']==0) {echo $query->subServicos['name'];}  ?>
+elseif(($query->servicos['oculto']==0)&&($query->subServicos['oculto']==0)) {echo $query->subServicos['name'];}  ?>
 
 </td>
   <td  class='quota_id'> <?= $query->us['name']; ?> </td>
@@ -385,14 +391,14 @@ Ponto de Refer&ecirc;ncia:<br>
   <div class="panel-heading"> Parceiro/Acompanhante</div>
   <div class="panel-body">
 
-<?php if($model->parceiro_id>0) { ?>
+<?php if($model->parceiro_benificiario_id>0) { ?>
 <?php $gender=$model->parceiro['emp_gender'] == 1 ? '<i class="fa fa-male"></i>' : '<i class="fa fa-female"></i>'?>
 <?php 
 if(isset($model->parceiro->distrito['cod_distrito'])&& $model->parceiro->distrito['cod_distrito']>0){
 
-echo  Html::a($model->parceiro->distrito['cod_distrito'].'/'.$model->parceiro['member_id'].' '.$gender, ['beneficiarios/view','id'=>$model->parceiro_id], ['class' => 'btn btn-success']); 
+echo  Html::a($model->parceiro->distrito['cod_distrito'].'/'.$model->parceiro['member_id'].' '.$gender, ['beneficiarios/view','id'=>$model->parceiro_benificiario_id], ['class' => 'btn btn-success']); 
 }else {
-echo '<font color=red>Parceiro com Nr='.$model->parceiro_id.' nao existe</font>';
+echo '<font color=red>Parceiro com Nr='.$model->parceiro_benificiario_id.' nao existe</font>';
 }
 
 ?>

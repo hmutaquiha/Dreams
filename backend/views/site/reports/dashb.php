@@ -104,7 +104,8 @@ exit;
 
 <!--ROW -->
  <div class="row">
-   <div class="col-lg-4">
+
+  <div class="col-lg-4"> <!-- Addede on 17.10.2020 -->
    <div class="panel panel-primary">
      <div class="panel-heading"> <strong align="center"><i class="ion ion-pie-graph info"></i> MAPUTO PROV&Iacute;NCIA
    <span class="badge badge-light"> <?= number_format(totalProv(2)); ?></span>
@@ -122,7 +123,97 @@ exit;
     </div>
     </div>
    </div>
+
+
+   <div class="col-lg-4">
+   <div class="panel panel-primary">
+     <div class="panel-heading"> <strong align="center"><i class="ion ion-pie-graph info"></i>INHAMBANE
+   <span class="badge badge-light"> <?= number_format(totalProv(4)); ?></span>
+     </strong></div>
+     <div class="panel-body">
+<i class="fa fa-globe"  style="color:green;"></i> <span>Distritos DREAMS </span>
+<span class="badge pull-right">
+  <?=  number_format(totalDist(4,1)); ?></span>
+  <br/>
+        <i class="fa fa-briefcase"  style="color:green;"></i> <span>Parceiros DREAMS </span>
+        <span class="badge pull-right">
+          <?=  totalParc(4,1); ?></span>
+  <div class="raw">&nbsp;</div>
+ <a href="#"   data-toggle="collapse" data-target="#2"><i class="fa fa-arrow-circle-down"  style="float:right;color:green;"></i></a>
+    </div>
+    </div>
+   </div>
+
+
+
+<div class="col-lg-4">
+   <div class="panel panel-primary">
+     <div class="panel-heading"> <strong align="center"><i class="ion ion-pie-graph info"></i> MANICA
+   <span class="badge badge-light"> <?= number_format(totalProv(6)); ?></span>
+     </strong></div>
+     <div class="panel-body">
+<i class="fa fa-globe"  style="color:green;"></i> <span>Distritos DREAMS </span>
+<span class="badge pull-right">
+  <?=  number_format(totalDist(6,1)); ?></span>
+  <br/>
+        <i class="fa fa-briefcase"  style="color:green;"></i> <span>Parceiros DREAMS </span>
+        <span class="badge pull-right">
+          <?=  totalParc(6,1); ?></span>
+  <div class="raw">&nbsp;</div>
+ <a href="#"   data-toggle="collapse" data-target="#2"><i class="fa fa-arrow-circle-down"  style="float:right;color:green;"></i></a>
+    </div>
+    </div>
+   </div>
+
 </div> <!--ROW-->
+
+
+<!--NEWROW-->
+ <div class="row">
+   <div class="col-lg-4"> <!-- Addede on 17.10.2020 -->
+   <div class="panel panel-primary">
+     <div class="panel-heading"> <strong align="center"><i class="ion ion-pie-graph info"></i> NAMPULA
+   <span class="badge badge-light"> <?= number_format(totalProv(9)); ?></span>
+     </strong></div>
+     <div class="panel-body">
+<i class="fa fa-globe"  style="color:green;"></i> <span>Distritos DREAMS </span>
+<span class="badge pull-right">
+  <?=  number_format(totalDist(9,1)); ?></span>
+  <br/>
+        <i class="fa fa-briefcase"  style="color:green;"></i> <span>Parceiros DREAMS </span>
+        <span class="badge pull-right">
+          <?=  totalParc(9,1); ?></span>
+  <div class="raw">&nbsp;</div>
+ <a href="#"   data-toggle="collapse" data-target="#2"><i class="fa fa-arrow-circle-down"  style="float:right;color:green;"></i></a>
+    </div>
+    </div>
+   </div>
+
+
+  <div class="col-lg-4"> <!-- Addede on 17.10.2020 -->
+   <div class="panel panel-primary">
+     <div class="panel-heading"> <strong align="center"><i class="ion ion-pie-graph info"></i> CABO-DELGADO
+   <span class="badge badge-light"> <?= number_format(totalProv(10)); ?></span>
+     </strong></div>
+     <div class="panel-body">
+<i class="fa fa-globe"  style="color:green;"></i> <span>Distritos DREAMS </span>
+<span class="badge pull-right">
+  <?=  number_format(totalDist(10,1)); ?></span>
+  <br/>
+        <i class="fa fa-briefcase"  style="color:green;"></i> <span>Parceiros DREAMS </span>
+        <span class="badge pull-right">
+          <?=  totalParc(10,1); ?></span>
+  <div class="raw">&nbsp;</div>
+ <a href="#"   data-toggle="collapse" data-target="#2"><i class="fa fa-arrow-circle-down"  style="float:right;color:green;"></i></a>
+    </div>
+    </div>
+   </div>
+
+ </div>  
+<!--ROW-->
+
+
+
 
 
 <div id="5" class="collapse">

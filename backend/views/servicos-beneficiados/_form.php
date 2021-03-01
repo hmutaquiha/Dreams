@@ -17,6 +17,7 @@ use app\models\Beneficiarios;
 use app\models\Us;
 use app\models\SubServicosDreams;
 use app\models\TipoServicos;
+use kartik\daterange\DateRangePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\ServicosBeneficiados */
 /* @var $form yii\widgets\ActiveForm */
@@ -136,13 +137,21 @@ if (isset($_REQUEST['ts'])&&($_REQUEST['ts']>0)) {echo Html::activeDropDownList(
 	<div class="col-lg-4"> 
 	<?php // $form->field($model, 'resultado')->textInput();
 ?> 
-    <?= $form->field($model, 'data_beneficio')->widget(DatePicker::classname(), [
+
+  
+
+ <?= $form->field($model, 'data_beneficio')->widget(DatePicker::classname(), [
     'options' => ['placeholder' => 'Data da Sessão...', 'dateFormat' => 'dd-MM-YYYY'],
     'pluginOptions' => [
         'autoclose'=>true
     ]
 ]);
- ?>
+ ?> 
+
+
+
+
+
  </div>
 
 </div> <div class="col-lg-12"> 

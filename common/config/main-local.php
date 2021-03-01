@@ -3,8 +3,8 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=dreamsco_app',
-            'username' => 'root',
+            'dsn' => 'mysql:host=localhost;dbname=dreamsco_app20210224',
+            'username' => 'dlt',
             'password' => '1234',
             'charset' => 'utf8',  
         ],

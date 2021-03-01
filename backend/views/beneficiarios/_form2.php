@@ -21,7 +21,6 @@ use app\models\ComiteCargos;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use kartik\widgets\DatePicker;
-// use kartik\DateRangePicker;
 use kartik\form\ActiveForm;
 use common\models\User;
 use app\models\Educacao;
@@ -38,47 +37,13 @@ use app\models\PontosDeEntrada;
 /* @var $this yii\web\View */
 /* @var $model app\models\Beneficiarios */
 /* @var $form yii\widgets\ActiveForm */
-
-
-// use kartik/date/DatePicker;
-
-// daterangepicker.com
-
-
-
-
 ?>
 
-<!-- <script>
-
-function actionTest(){
-  $cs = Yii::app()->clientScript;
-  $cs->registerScript('my_script', 'alert("Hi there!");', CClientScript::POS_READY);
-  $this->render('any_view');
-}
-
-$(document).ready(function(){
-  //  $("#teste1").hide(1000);
-    alert ('Ola mundo!!!');
-
-  $("#beneficiarios-vbg_vitima").click(function(){
-    alert ('Ola mundo!!!');
-  //  $("#teste1").hide(500);
-  //  $("#vbg_tipo_violencia").hide(500);
-  });
-
-  function Rever(){
-    alert ('Ola mundo!!!');
-  }
-});
-
-</script> -->
 
 <div class="beneficiarios-form">
 
    <?php $form = ActiveForm::begin(); ?>
 
- 
 
 <div class="row">
   <div class="col-lg-6">
@@ -125,43 +90,29 @@ $(document).ready(function(){
       <div class="col-lg-6"> <?= $form->field($model, 'emp_firstname')->textInput() ?></div>
   </div>
 <?php }?>
-<!-- <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true
-    });
-  } );
-  </script> -->
+
 	  
 <div class="row">
    <div class="col-lg-6">
 <button class="btn btn-success" data-toggle="collapse" data-target="#data" disabled> Data de Nascimento <span class="glyphicon glyphicon-calendar"></span></button>
 
-<?= $form->field($model, 'emp_birthday')->widget(DatePicker::classname(), [
-    'options' => ['placeholder' => 'Data de Nascimento...', 'disabled' => false],
-'pluginOptions' => [ 'autoclose'=>true,'format' => 'dd/mm/yyyy', 'singleDatePicker'=>true, 'showDropdowns'=>true]
-]); ?>
-
-
+<?= $form->field($model, 'emp_birthday')->widget(\yii\widgets\MaskedInput::className(), [
+    'mask' => '99/99/9999',
+]) ?>
 
 <!--  <div class="form-group field-beneficiarios-emp_birthday">
 <label class="control-label" for="beneficiarios-emp_birthday">Data Nascimento</label>
 <input type="text" id="beneficiarios-emp_birthday" class="form-control" name="Beneficiarios[emp_birthday]">
-</div> 
-
-// $form->field($model, 'emp_birthday')->widget(\yii\widgets\MaskedInput::className(), ['mask' => '99/99/9999', ]) 
-
--->
+</div> -->
 <!--
 <div id="data" class="">
 
-   <?php // $form->field($model, 'emp_birthday')->widget(DatePicker::classname(), [
-   // 'options' => ['placeholder' => 'Data de Nascimento...', 'dateFormat' => 'mm/dd/yyyy'],
-// 'pluginOptions' => [
-//     'autoclose'=>true
-//    ]
-// ]);
+   <?php $form->field($model, 'emp_birthday')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Data de Nascimento...', 'dateFormat' => 'mm/dd/yyyy'],
+'pluginOptions' => [
+        'autoclose'=>true
+    ]
+]);
  ?>
 </div> -->   </div>
 
@@ -377,7 +328,6 @@ elseif($model->ponto_entrada==2)
 <div class="row">
 
   <div class="col-lg-6" align="right"> 
-
   <?=  $form->field($model, 'estudante')->checkBox([1 => 'SIM', NULL => 'NÃO']); ?>
  <?php //$form->field($model, 'estudante')->textInput(); ?>
  </div>
@@ -542,7 +492,7 @@ elseif($model->ponto_entrada==2)
 </div>
 
 
-<!-- Visto por Gerzelio:   Codigo por ser revisto esta muito sujo apartir deste ponto -->
+
 
 
 <?php if(!$model->isNewRecord&&$model->emp_gender==2) { ?> <div class="col-lg-6">
@@ -567,38 +517,18 @@ elseif($model->ponto_entrada==2)
     <tr> <td align="right" width="60%">Vítima de Exploração sexual?</td> <td width="10%">&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_exploracao_sexual')->widget(Select2::classname(),
 ['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
 
-<tr id="teste2"> <td align="right">Tempo:</td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_vsex_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
-
 
   <?php if($model->idade_anos>=18) {?>
 <tr> <td align="right" width="60%">Trabalhadora de Sexo?</td> <td width="10%">&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_sex_worker')
 ->widget(Select2::classname(),['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
 <?php }?>
   
-  <tr id="teste0"> <td align="right">Vítima de Violéncia Baseada no Gênero?</td><td>&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_vitima')->widget(Select2::classname(),['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
-  
-  
-    <tr id="teste1"> <td align="right">Tipo de Violéncia: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tipo_violencia')->widget(Select2::classname(),['data' => ['Fisica' => 'Fisica','Sexual' => 'Sexual','Pscologica' => 'Pscologica'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
-
-    <tr id="teste2"> <td align="right">Tempo: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tempo')->widget(Select2::classname(),['data' => ['0' => '<3 Dias','1' => '>3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
-  
+  <tr> <td align="right">Vítima de Violéncia Baseada no Gênero?</td><td>&nbsp;</td><td>&nbsp;<?=  $form->field($model, 'vbg_vitima')->widget(Select2::classname(),['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td></tr>
 </table>
-
-
-  <div class="row">
-    <div class="col-lg-6" align="right"> 
-      <!-- <label> Ola </label> -->
-    </div>
-    <div class="col-lg-6" align="left">
-
-    </div>
-  </div>
+    
+    
 </div>
-
-<!-- Visto por Gerzelio:   Codigo por ser revisto esta muito sujo ate este ponto -->
-
  </div>
-
 </div> <?php }?>
 
 
@@ -651,40 +581,3 @@ pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!0
 ]);
 
 ?>
-
-
-
-<?php
-
-$script = <<< JS
-
-// $( "#input_id-beneficiarios-emp_birthday" ).datepicker({
-// 	changeMonth: true,
-//   changeYear: true
-// });
-
-// // alert ("Ola mundo!!!");
-//  var v1 = document.getElementById(select2-beneficiarios-vbg_vsex_tempo-container).title;
-//   alert ("Ola mundo!!!");
-
-   $(document).ready(function () { 
-    // alert ('Ola mundo!!!'); 
-    
-    $("#teste0").click(function(){
-    // alert ('Ola mundo!!!');
-  //  $("#teste1").toggle(500);
-  //  $("#teste2").toggle(500);
-  //  $("#vbg_tipo_violencia").hide(500);
-   var id2 = document.getElementById(vbg_vitima).value;
-  // var id2 = this.value;
-    // alert ('Ola mundo'.id2);   Comentado
-  });
-
-    });       
-
-JS;
-$this->registerJs($script);
-
-?>
-
-

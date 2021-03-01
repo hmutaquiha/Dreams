@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           // 'district_code',
+            'cod_distrito',
             'district_name',
               [
             'attribute'=>'province_code',
