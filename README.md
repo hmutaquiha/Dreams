@@ -16,6 +16,14 @@ The DREAMS Layering tool is owned by MISAU (MOH of Mozambique).
 # Build and Test
 We will create a testing project on test.dreams.co.mz and will give access to all.
 
+# Resolucao de bug e configuracao
+Configuracoes e observacoes necessarias para rodar o sistema
+1.  Esta pasya deve estar acessivel
+    chmod 777 /backend/web/assets
+
+2.  Visite o ficheiro: /backend/web/index.php
+    Para configuracoes basicas
+
 # Contribute
  
 Users and developers can contribute to make DREAMS code better by joining ou Development Team or by direct contact to the project Coordenator (Mr. Gerzelio Saide & Mr. Jcordao Cololo)

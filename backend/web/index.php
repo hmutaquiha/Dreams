@@ -1,5 +1,12 @@
 
+
 <?php
+
+/*
+    Em producao e commitando desative o Debug colocando 0 no final e em ambinte de desenvolvimento coloque 1;
+    Para p yii_env colegue: 'prod' e 'dev' dependedo da sircustancia a cima.
+*/
+
 defined('YII_DEBUG') or define('YII_DEBUG',0);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 
