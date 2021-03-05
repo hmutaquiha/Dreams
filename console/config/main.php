@@ -24,5 +24,6 @@ return [
             ],
         ],
     ],
+    'request' => [ 'parsers' => new \yii\helpers\UnsetArrayValue() ],
     'params' => $params,
 ];

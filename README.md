@@ -18,7 +18,7 @@ We will create a testing project on test.dreams.co.mz and will give access to al
 
 # Resolucao de bug e configuracao
 Configuracoes e observacoes necessarias para rodar o sistema
-1.  Esta pasya deve estar acessivel
+1.  Esta pasta deve estar acessivel
     chmod 777 /backend/web/assets
 
 2.  Visite o ficheiro: /backend/web/index.php
