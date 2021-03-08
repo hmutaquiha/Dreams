@@ -49,6 +49,9 @@ use app\models\ServicosDream;
   <div class="col-lg-3">
  <?= $form->field($model, 'oculto')->radioButtonGroup([1 => ' Sim', 0 => ' Nao']); ?>
  </div> 
+    <div class="col-lg-3">
+        <?= $form->field($model, 'mandatory')->radioButtonGroup([1 => 'Sim', 0 => 'Não']); ?>
+    </div> 
  </div>
 
     <div class="form-group">
