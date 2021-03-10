@@ -227,6 +227,8 @@ class BeneficiariosDreams extends \yii\db\ActiveRecord
           'vbg_sexual_activa' => 'Sexualmente Activa?',
           'vbg_relacao_multipla' => 'Relações Múltiplas e Concorrentes?',
           'vbg_vitima' => 'Vítima de Violéncia Baseada no Gênero?',
+          'alcohol_drugs_use' => 'Uso de Álcool e Drogas',
+          'sti_history' => 'Histórico de ITS',
         ];
     }
 

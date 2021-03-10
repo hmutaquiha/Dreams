@@ -131,7 +131,7 @@ $this->registerJs($script);
 $script = <<< JS
 
  function lettersOnly(evt) {
-    evt = (evt) ? evt : event;
+    evt = (evt) ? evt : even
     var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
         ((evt.which) ? evt.which : 0));
     if (charCode > 31 && (charCode < 65 || charCode > 90) &&
@@ -674,6 +674,20 @@ elseif($model->ponto_entrada==2)
 
   <tr id="teste2"> <td align="right">Tempo: </td><td>&nbsp;</td><td>&nbsp;      <?=  $form->field($model, 'vbg_tempo')->widget(Select2::classname(),['data' => ['0' => ' - 3 Dias','1' => ' + 3 Dias'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?>
   
+
+  <tr> 
+    <td align="right">Uso de Álcool e Drogas?</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;<?=  $form->field($model,'alcohol_drugs_use')->widget(Select2::classname(),['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td>
+  </tr>
+  <tr> 
+    <td align="right">Histórico de ITS?</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;<?=  $form->field($model,'sti_history')->widget(Select2::classname(),['data' => ['0' => 'Não','1' => 'SIM'],'options' => ['placeholder' => '--Selecione Aqui--'],'pluginOptions' => ['allowClear' => true],])->label(false); ?></td>
+  </tr>
+
+
+
 </table>
     
     
