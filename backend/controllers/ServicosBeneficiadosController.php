@@ -178,7 +178,8 @@ Yii::$app->db->open();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['beneficiarios/view', 'id' => $model->beneficiario_id]);
+
+            return $this->redirect(['servicos-beneficiados/view', 'id' => $model->id]);
         } else {
             //return $this->renderAjax('update', [
 			return $this->render('update', [

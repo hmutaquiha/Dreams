@@ -29,7 +29,7 @@ use kartik\daterange\DateRangePicker;
 <div class="row"> 
 <div class="col-lg-12"> 
  <?php 
-if(isset($_REQUEST['id'])) {$_REQUEST['m']=filter_var($_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT);}
+//if(isset($_REQUEST['id'])) {$_REQUEST['m']=filter_var($_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT);}
 if(isset($_REQUEST['m'])&&$_REQUEST['m']>0) {
 
 	$idb=filter_var($_REQUEST['m'], FILTER_SANITIZE_NUMBER_INT);
